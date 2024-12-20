@@ -1,0 +1,55 @@
+<div class="index">
+  <h1 class="title">Lista de Episodios</h1>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error-message">
+    <p>Hubo un problema al cargar los episodios. Intenta nuevamente más tarde.</p>
+  </div>
+
+  <!-- Lista de episodios -->
+  <div *ngFor="let episode of episodes" class="episode-card" (click)="showEpisodeDetails(episode)">
+    <div class="episode-card-content">
+      <h3 class="episode-title">{{ episode.name }}</h3>
+      <p><strong>Fecha de emisión:</strong> {{ episode.air_date }}</p>
+      <p><strong>Episodio:</strong> {{ episode.episode }}</p>
+    </div>
+  </div>
+
+  <!-- Detalles del episodio seleccionado -->
+  <div *ngIf="selectedEpisode" class="episode-details">
+    <h2 class="details-title">{{ selectedEpisode.name }}</h2>
+    <p><strong>Aire de emisión:</strong> {{ selectedEpisode.air_date }}</p>
+    <p><strong>Código de Episodio:</strong> {{ selectedEpisode.episode }}</p>
+
+    <div class="buttons">
+      <button (click)="toggleCharacters()" class="button">Mostrar Personajes</button>
+      <button (click)="toggleLocations()" class="button">Mostrar Ubicaciones</button>
+    </div>
+
+    <!-- Personajes -->
+    <div *ngIf="charactersList" class="characters">
+      <h3>Personajes</h3>
+      <div *ngIf="selectedEpisode.characters && selectedEpisode.characters.length > 0; else noCharacters">
+        <div *ngFor="let characterUrl of selectedEpisode.characters">
+          <app-character [character]="characterUrl"></app-character>
+        </div>
+      </div>
+      <ng-template #noCharacters>
+        <p>No hay personajes disponibles para este episodio.</p>
+      </ng-template>
+    </div>
+
+    <!-- Ubicaciones -->
+    <div *ngIf="locationsList" class="locations">
+      <h3>Ubicaciones</h3>
+      <div *ngIf="selectedEpisode.locations && selectedEpisode.locations.length > 0; else noLocations">
+        <div *ngFor="let locationUrl of selectedEpisode.locations">
+          <app-location [location]="locationUrl"></app-location>
+        </div>
+      </div>
+      <ng-template #noLocations>
+        <p>No hay ubicaciones disponibles para este episodio.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/rickmorty-f",
-            "index": "src/index.html",
+            "index": "src/Index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -67,7 +67,8 @@
               "buildTarget": "rickmorty_F:build:production"
             },
             "development": {
-              "buildTarget": "rickmorty_F:build:development"
+              "buildTarget": "rickmorty_F:build:development",
+              "port": 8080
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +98,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
